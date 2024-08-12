@@ -299,7 +299,7 @@ To run one more instance in another port we need to edit the <b>Run/Debug Config
   Now change the port in the property file as 4001. Then run once again. 
 </p>
  
-<h3>In In Eclipse :- </h3>
+<h3>In Eclipse :- </h3>
 <p>  
   Right click on th main class -> click properties -> select main class -> click new button and add <b>-Dserver. port=4001</b> in the Vm Arguments as shown in the following images. 
 </p>
@@ -310,6 +310,27 @@ To run one more instance in another port we need to edit the <b>Run/Debug Config
 </p>
 </p>
   Then select the new configuration and run. Now these two instances of server will be appear in the eureka server dashboard. 
+</p>
+
+<h3>In STS :- </h3>
+<p>  
+  Right click on the lb-micro-service-server project -> click properties -> select Run/Debug Setting -> Select existing one (lb-micro-service-server) and click duplicate, then edit it <b>-Dserver. port=4001</b> in the Vm Arguments as shown in the following images. 
+</p>
+<p align="center">
+  <img src="images/STS-2nd-Instance-v1.PNG" alt="Logo" width="744" height="365">
+<p align="center">
+  <img src="images/STS-2nd-Instance-v2.PNG" alt="Logo" width="836" height="443. 2">
+</p>
+</p>
+  Then select the new configuration and run. Now these two instances of server will be appear in the eureka server dashboard. 
+</p>
+
+###Eureka Dashboard
+<h3>Eureka</h3>
+<p align="center">
+  <img src="images/euraka-4-instances.PNG" alt="Logo" width="744" height="365">
+</p>
+  Thelb-micro-service-server is having 2 instances (4000 and 4001).
 </p>
 
 ### 4) Client application
@@ -463,7 +484,7 @@ public class ResponseModel {
 * Now we can See totally 4 application instances are running in eureka server dashboard.
 * Call client application API. 
 
-URI :- http://localhost:5000/microservice/client/technologyInfo/java
+URI :- http://localhost:5000/client/technologyInfo/java
 
 * Response :- 
 

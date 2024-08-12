@@ -1,4 +1,4 @@
-package com.microservices.client;
+package com.microservices.server.model;
 
 public class ResponseModel {
 
