@@ -20,9 +20,9 @@
 - Java (1.8)
 - Libraries:
   * Netflix Eureka naming server 
-  * Netflix Zuul
-  * Ribbon
-  * Feign
+  * Netflix Zuul (spring-cloud-starter-netflix-zuul)
+  * Feign (spring-cloud-starter-openfeign)
+  * Cloud Loadbalancer (spring-cloud-starter-loadbalancer)
   
 ## Network Architecture
   <p align="center">
@@ -39,8 +39,8 @@
 ## Steps to run applications
 
 * (1) Run Load balancing application first (service discovery). 
-* (2) Run The API gateway application.
-* (3) Then run Server application in two ports. 
+* (2) Run the API gateway application.
+* (3) Then run Server application (in two ports). 
 * (4) At last run Client application. 
 
 - Check the discovery Eureka server (http://localhost:8761/) where initially following 3 serverices will be registerd.
@@ -330,7 +330,7 @@ To run one more instance in another port we need to edit the <b>Run/Debug Config
 <p align="center">
   <img src="images/euraka-4-instances.PNG" alt="Logo" width="744" height="365">
 </p>
-  Thelb-micro-service-server is having 2 instances (4000 and 4001).
+  The lb-micro-service-server is having 2 instances (4000 and 4001).
 </p>
 
 ### 4) Client application
@@ -351,7 +351,7 @@ To run one more instance in another port we need to edit the <b>Run/Debug Config
 </dependency>
 ```
 
-#### Eureka Client & Ribbon
+#### Eureka Client & Cloud Loadbalancer 
 
 * Ribbon will do the automatic switching of servers in the client side
 * Eureka will help us to dynamically add main server instances to the load balancer according to traffic. 
@@ -382,8 +382,8 @@ To run one more instance in another port we need to edit the <b>Run/Debug Config
     <artifactId>spring-cloud-starter-openfeign</artifactId>
   </dependency>
   <dependency>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-loadbalancer</artifactId>
   </dependency>
   <dependency>
     <groupId>org.springframework.cloud</groupId>
@@ -431,32 +431,27 @@ public class MicroServiceClientApplication {
 public class ClientController {
 
     @Autowired
-    private ApiProxy apiProxy;
+    private ConfigService apiProxy;
 
     @GetMapping("/technologyInfo/{platform}")
     public ResponseModel getTechnologyInfo(@PathVariable("platform") String platform) {
-
-        // API calling using proxy interface and mapping into ResponseModel named Object.
         ResponseModel responseModel = apiProxy.retrieveTechnologyInfo(platform);
-
         return responseModel;
     }
 }
 ```
 
-#### ApiProxy.java
+#### ConfigService.java
 
 * Act as proxy class in between API and client. 
-* <b>@FeignClient(name = "api-gateway-server")</b> annotation will enable the communication from the Client application to API gateway application. 
-* <b>@RibbonClient(name = "micro-service-server")</b> annotation will tell the API gateway application to where the request has to go.
+* <b>@FeignClient(value = "micro-service-server")</b> annotation will enable the communication from the Client application to API gateway application. 
 * <b>micro-service-server</b> should be the name of Server application.
 
 ```java 
-@FeignClient(name = "api-gateway-server")
-@RibbonClient(name = "micro-service-server")
+@FeignClient(value = "micro-service-server")
 public interface ApiProxy {
 
-    @GetMapping("micro-service-server/server/technologyInfo/{platform}")
+    @GetMapping("/server/technologyInfo/{platform}")
     ResponseModel retrieveTechnologyInfo(@PathVariable("platform") String platform);
 }
 ```
@@ -484,7 +479,7 @@ public class ResponseModel {
 * Now we can See totally 4 application instances are running in eureka server dashboard.
 * Call client application API. 
 
-URI :- http://localhost:5000/client/technologyInfo/java
+URI :- http://localhost:5000/microservice/client/technologyInfo/java
 
 * Response :- 
 
