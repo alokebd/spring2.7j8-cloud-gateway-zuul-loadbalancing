@@ -5,7 +5,7 @@
   </tr>
 </table>
 
-[![Platform](https://img.shields.io/badge/Java-1.8%2B-red)](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
+[![Platform](https://img.shields.io/badge/Java-1.8%2B-red)](https://www.oracle.com/ca-en/java/technologies/javase/javase8-archive-downloads.html)
 [![Library](https://img.shields.io/badge/Eureka%20Server-Netflix-blue)](https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-server)
 [![Library](https://img.shields.io/badge/Zuul-Netflix-yellow)](https://github.com/alokebd/spring2.7j8-cloud-gateway-zuul-loadbalancing/tree/main)
 
