@@ -1,6 +1,6 @@
 <table style="width:100%">
   <tr>
-    <td><h1 align="center">Develop an API gateway with load balancer in JAVA</h3></td>
+    <td><h1 align="center">PoC of API gateway with load balancer.</h3></td>
     <td><img src="images/titleImage.png" alt="Spring boot api gateway"></td>
   </tr>
 </table>
